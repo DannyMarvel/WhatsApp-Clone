@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "146829936187",
+    "project_id": "danny-whatsapp",
+    "storage_bucket": "danny-whatsapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146829936187:android:f081a82f9bc42c2c8d7e1e",
+        "android_client_info": {
+          "package_name": "com.example.danny_chats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146829936187-n53fglvmes8lrkgjr59kr7pd1gs4matn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPv1KonpvY9QoJsEhmizBYyqrNJwRey9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "146829936187-n53fglvmes8lrkgjr59kr7pd1gs4matn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "146829936187-a7v12isbba7o7o750bqjq917f5gnpkrj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dannyChats"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
