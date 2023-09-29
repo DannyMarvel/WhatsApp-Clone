@@ -1,17 +1,22 @@
 import 'package:danny_chats/common/widgets2/custom_button.dart';
+import 'package:danny_chats/common/widgets2/utils/utils.dart';
 import 'package:danny_chats/widgets/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginScreen extends StatefulWidget {
+import '../controller/auth_controller.dart';
+
+//Now we convert the statefulWidget to consumer StatefulWidget so we can use Riverpod
+class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = '/login-screen';
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final phoneController = TextEditingController();
   Country? country;
 
@@ -34,6 +39,24 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       },
     );
+  }
+//Whenever the user clicks next after selecting a country
+//We need to call the AuthController, which will inturn call the AuthRepository
+//Then we communicate with firebase
+
+  void sendPhoneNumber() {
+    String phoneNumber = phoneController.text.trim();
+    if (country != null && phoneNumber.isNotEmpty) {
+//We also need to add the country code to firebae
+      ref
+          .read(authControllerProvider)
+          .signInWithPhone(context, '+${country!.phoneCode}$phoneNumber');
+//.read works like Provider.of(context, listen:false)
+//Provider ref => Interact provider with provider
+//Widget ref => makes widget interact with provider
+    } else {
+      showSnackBar(context: context, content: 'Fill out all the fields'); 
+    }
   }
 
   @override
@@ -84,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               child: CustomButton(
                 text: 'NEXT',
-                onPressed: () {},
+                onPressed: sendPhoneNumber,
               ),
             ),
           ],
