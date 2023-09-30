@@ -1,16 +1,20 @@
 import 'package:danny_chats/common/widgets2/utils/utils.dart';
+import 'package:danny_chats/features/landing/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
-class UserInformationScreen extends StatefulWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class UserInformationScreen extends ConsumerStatefulWidget {
   static const String routeName = '/user-information';
   const UserInformationScreen({super.key});
 
   @override
-  State<UserInformationScreen> createState() => _UserInformationScreenState();
+  ConsumerState<UserInformationScreen> createState() =>
+      _UserInformationScreenState();
 }
 
-class _UserInformationScreenState extends State<UserInformationScreen> {
+class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
   final TextEditingController nameController = TextEditingController();
   File? image;
   @override
@@ -19,12 +23,25 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
     super.dispose();
     nameController.dispose();
   }
+
 //Note the Inner Function
   void selectImage() async {
     image = await pickImageFromGallery(context);
-    setState(() {
-      
-    });
+    setState(() {});
+  }
+
+  void storeUserData() async {
+    String name = nameController.text.trim();
+
+    if (name.isNotEmpty) {
+      ref
+          .read(authControllerProvider)
+          .saveUserDataToFirebase(
+            context, 
+            name, 
+            image,
+            ); 
+    }
   }
 
   @override
@@ -37,14 +54,15 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
             children: [
               Stack(
                 children: [
-               image == null? CircleAvatar(
-                    backgroundImage: NetworkImage(''),
-                    radius: 64,
-                  ) : 
-                  CircleAvatar(
-                    backgroundImage: FileImage(image!),
-                    radius: 64,
-                  ),
+                  image == null
+                      ? CircleAvatar(
+                          backgroundImage: NetworkImage(''),
+                          radius: 64,
+                        )
+                      : CircleAvatar(
+                          backgroundImage: FileImage(image!),
+                          radius: 64,
+                        ),
                   Positioned(
                     bottom: -10,
                     left: 80,
@@ -68,7 +86,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: storeUserData,
                     icon: Icon(Icons.done),
                   ),
                 ],

@@ -27,7 +27,7 @@ class UserModel {
       'groupId': groupId,
     };
   }
-
+//We needed a toMap function and fromMap function
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       name: map['name'] ?? '',

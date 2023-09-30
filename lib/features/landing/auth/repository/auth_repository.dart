@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:danny_chats/common/widgets2/utils/utils.dart';
 import 'package:danny_chats/features/landing/auth/screens/otp_screen.dart';
 import 'package:danny_chats/features/landing/auth/screens/user_information_screen.dart';
+import 'package:danny_chats/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common/repositories/common_firebase_storage.dart';
+import '../../../../screens/mobile_layout_screen.dart';
 
 //Provider ref helps us to interact with other providers
 final authRepositoryProvider = Provider(
@@ -24,6 +26,16 @@ class AuthRepository {
     required this.auth,
     required this.firestore,
   });
+
+  Future<UserModel?> getCurrentUserData() async {
+    var userData =
+        await firestore.collection('users').doc(auth.currentUser?.uid).get();
+    UserModel? user;
+    if (userData.data() != null) {
+      user = UserModel.fromMap(userData.data()!);
+    }
+    return user;
+  }
 
   void signInWithPhone(BuildContext context, phoneNumber) async {
     try {
@@ -84,11 +96,30 @@ class AuthRepository {
       String uid = auth.currentUser!.uid;
       String photoUrl = '';
       if (profilePic != null) {
-  photoUrl = await  ref.read(commonFirebaseStorageRepositoryProvider).storeFileToFirebase(
+        photoUrl = await ref
+            .read(commonFirebaseStorageRepositoryProvider)
+            .storeFileToFirebase(
               'profilePic/$uid',
               profilePic,
             );
       }
+      var user = UserModel(
+        name: name,
+        uid: uid,
+        profilePic: photoUrl,
+        isOnline: true,
+        phoneNumber: auth.currentUser!.uid,
+        groupId: [],
+      );
+//Now we push the user to firebase
+      await firestore.collection('users').doc(uid).set(user.toMap());
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MobileLayoutScreen(),
+        ),
+        (route) => false,
+      );
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
     }
