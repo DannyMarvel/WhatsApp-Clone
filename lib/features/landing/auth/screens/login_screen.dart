@@ -55,7 +55,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 //Provider ref => Interact provider with provider
 //Widget ref => makes widget interact with provider
     } else {
-      showSnackBar(context: context, content: 'Fill out all the fields'); 
+      showSnackBar(context: context, content: 'Fill out all the fields');
     }
   }
 
@@ -101,12 +101,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                 ),
-                Text(''),
-                Text(''),
-                Text(''),
-                Text(''),
-                Text(''),
-                Text(''),
               ],
             ),
             SizedBox(height: size.height * 0.6),
@@ -116,6 +110,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 onPressed: sendPhoneNumber,
               ),
             ),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
           ],
         ),
       ),

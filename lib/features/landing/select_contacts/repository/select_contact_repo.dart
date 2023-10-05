@@ -36,7 +36,12 @@ class SelectContactRepository {
       bool isFound = false;
       for (var document in userCollection.docs) {
         var userData = UserModel.fromMap(document.data());
+        String selectedPhoneNum =
+            selectedContact.phones[0].number.replaceAll('', '');
         print(selectedContact.phones[0].number);
+        if (selectedPhoneNum == userData.phoneNumber) {
+          isFound = true;
+        }
       }
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
