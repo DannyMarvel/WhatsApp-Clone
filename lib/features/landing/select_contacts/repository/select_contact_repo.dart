@@ -5,6 +5,7 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../models/user_model.dart';
+import '../../auth/chats/screens/mobile_chat_screen.dart';
 
 final selectContactRepositoryProvider =
     Provider((ref) => SelectContactRepository(
@@ -41,7 +42,21 @@ class SelectContactRepository {
         print(selectedContact.phones[0].number);
         if (selectedPhoneNum == userData.phoneNumber) {
           isFound = true;
+          Navigator.pushNamed(
+            context,
+            MobileChatScreen.routeName,
+          arguments: {
+          'name': userData.name, 
+          'uid' : userData.uid,
+          }
+          );
         }
+      }
+      if (!isFound) {
+        showSnackBar(
+          context: context,
+          content: 'This Number does not exist on this App!',
+        );
       }
     } catch (e) {
       showSnackBar(context: context, content: e.toString());

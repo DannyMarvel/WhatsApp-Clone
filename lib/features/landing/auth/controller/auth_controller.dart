@@ -16,11 +16,8 @@ final authControllerProvider = Provider((ref) {
 });
 
 final userDataAuthProvider = FutureProvider((ref) {
-final authController = ref.watch(authControllerProvider);
-return authController.getUserData();
-
-
-
+  final authController = ref.watch(authControllerProvider);
+  return authController.getUserData();
 });
 
 class AuthController {
@@ -59,4 +56,13 @@ class AuthController {
       context: context,
     );
   }
+//Now we get UserData by Id
+
+  Stream<UserModel> userDataById(String userId) {
+    return authRepository.userData(userId);
+  }
+void setUserState(bool isOnline) {
+    authRepository.setUserState(isOnline);
+  }
+
 }

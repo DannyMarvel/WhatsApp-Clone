@@ -108,7 +108,8 @@ class AuthRepository {
         uid: uid,
         profilePic: photoUrl,
         isOnline: true,
-        phoneNumber: auth.currentUser!.uid,
+//Note Phone Number and uid are totally different
+        phoneNumber: auth.currentUser!.phoneNumber.toString(),
         groupId: [],
       );
 //Now we push the user to firebase
@@ -123,5 +124,20 @@ class AuthRepository {
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
     }
+  }
+
+//Auth Repository first, Then Move to the Auth Controller
+  Stream<UserModel> userData(String userId) {
+//Now we get UserData from firestore
+    return firestore.collection('users').doc(userId).snapshots().map(
+          (event) => UserModel.fromMap(event.data()!),
+        );
+  }
+
+  void setUserState(bool isOnline) async {
+  //Now we update isOnline / offline on firestore  
+    await firestore.collection('users').doc(auth.currentUser!.uid).update({
+      'isOnline': isOnline,
+    });
   }
 }
