@@ -1,3 +1,4 @@
+import 'package:enough_giphy_flutter/enough_giphy_flutter.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -31,7 +32,6 @@ Future<File?> pickImageFromGallery(BuildContext context) async {
   return image;
 }
 
-
 //Now we create a function to PickVideo from Gallery
 Future<File?> pickVideoFromGallery(BuildContext context) async {
   File? video;
@@ -42,8 +42,22 @@ Future<File?> pickVideoFromGallery(BuildContext context) async {
     if (pickedVideo != null) {
       video = File(pickedVideo.path);
     }
-  } catch (e) {
+  } catch (e) { 
     showSnackBar(context: context, content: e.toString());
   }
   return video;
+}
+
+Future<GiphyGif?> pickGIF(BuildContext context) async {
+  // pqVmJNy2Gx1WJ0gmJFoUYmXd5mE1W88P
+  GiphyGif? gif;
+  try {
+    gif = await Giphy.getGif(
+      context: context,
+      apiKey: 'pqVmJNy2Gx1WJ0gmJFoUYmXd5mE1W88P',
+    );
+  } catch (e) {
+    showSnackBar(context: context, content: e.toString());
+  }
+  return gif;
 }

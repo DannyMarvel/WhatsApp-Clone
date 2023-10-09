@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/properties/group.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../../common/enums/message_enum.dart';
+import '../../../../../common/providers/message_reply_provider.dart';
 import '../../../../../common/repositories/common_firebase_storage.dart';
 import '../../../../../common/widgets2/utils/utils.dart';
 import '../../../../../models/chat_contact.dart';

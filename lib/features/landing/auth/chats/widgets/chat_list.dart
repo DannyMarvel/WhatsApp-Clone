@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+
 
 import '../../../../../common/enums/message_enum.dart';
+import '../../../../../common/providers/message_reply_provider.dart';
 import '../../../../../common/widgets2/loader.dart';
 import '../../../../../models/message.dart';
 import '../controller/chat_controller.dart';
@@ -102,7 +105,7 @@ class _ChatListState extends ConsumerState<ChatList> {
                   ),
                   isSeen: messageData.isSeen,
                 );
-              }
+              }  
               return SenderMessageCard(
                 message: messageData.text,
                 date: timeSent,

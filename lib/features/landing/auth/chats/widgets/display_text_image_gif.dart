@@ -1,3 +1,5 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:danny_chats/features/landing/auth/chats/widgets/video_player_item.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +17,8 @@ class DisplayTextImageGIF extends StatelessWidget {
 //Either Text, Video, image etc
   @override
   Widget build(BuildContext context) {
+    //We use AudioPlayer package instead of flutter Sound Package
+    //Becuase we want to use the sound in a stateless widget
     bool isPlaying = false;
     final AudioPlayer audioPlayer = AudioPlayer();
 
@@ -26,10 +30,14 @@ class DisplayTextImageGIF extends StatelessWidget {
             ),
           )
         : type == MessageEnum.audio
-            ? StatefulBuilder(builder: (context, setState) {
+            ?
+//We use StatefulBuilder so we can use SetState in a stateless widget
+//Note setState only rebuilds the StatefulBuilder not the entire widget
+            StatefulBuilder(builder: (context, setState) {
                 return IconButton(
+//we also set width for the IconButton
                   constraints: const BoxConstraints(
-                    minWidth: 100,
+                    minWidth: 200,
                   ),
                   onPressed: () async {
                     if (isPlaying) {
@@ -51,18 +59,18 @@ class DisplayTextImageGIF extends StatelessWidget {
               })
             : type == MessageEnum.video
                 ? VideoPlayerItem(
-                  //Add  Cached Video player Plugin
+                    //Add  Cached Video player Plugin
                     videoUrl: message,
                   )
                 : type == MessageEnum.gif
                     ? CachedNetworkImage(
-//Add CachedNetworkImage Plugin Package                      
+//Add CachedNetworkImage Plugin Package
 //CachedNetworkImage enables us to get the image direclty from the net
-//Instead of displaying the Image url link                      
+//Instead of displaying the Image url link
                         imageUrl: message,
                       )
                     : CachedNetworkImage(
-              //Add in Pubspec.Yaml        
+                        //Add in Pubspec.Yaml
                         imageUrl: message,
                       );
   }

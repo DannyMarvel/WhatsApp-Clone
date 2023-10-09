@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swipe_to/swipe_to.dart';
 
 import '../../../../../common/enums/message_enum.dart';
 import '../../../../../widgets/colors.dart';
@@ -62,6 +63,9 @@ class MyMessageCard extends StatelessWidget {
                         ),
                   child: Column(
                     children: [
+//... is the cascading operator that renders what is in the column 
+//... it also helps us to pass in and display Multiple widgets at a go
+//Becuase if case displays only one widget                    
                       if (isReplying) ...[
                         Text(
                           username,

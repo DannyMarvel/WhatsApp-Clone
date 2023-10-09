@@ -1,12 +1,18 @@
 import 'dart:io';
 
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sound/public/flutter_sound_recorder.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../common/enums/message_enum.dart';
+import '../../../../../common/providers/message_reply_provider.dart';
 import '../../../../../common/widgets2/utils/utils.dart';
 import '../../../../../widgets/colors.dart';
 import '../controller/chat_controller.dart';
+import 'message_reply_preview.dart';
 
 
 class BottomChatField extends ConsumerStatefulWidget {
@@ -40,6 +46,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   }
 
   void openAudio() async {
+ //We First request the Permission for microphone   
     final status = await Permission.microphone.request();
     if (status != PermissionStatus.granted) {
       throw RecordingPermissionException('Mic permission not allowed!');
@@ -50,6 +57,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
 
   void sendTextMessage() async {
     if (isShowSendButton) {
+//Then send Text Message      
       ref.read(chatControllerProvider).sendTextMessage(
             context,
             _messageController.text.trim(),
@@ -67,14 +75,17 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
       }
       if (isRecording) {
         await _soundRecorder!.stopRecorder();
+//After the user stops recording then, we send the audio file        
         sendFileMessage(File(path), MessageEnum.audio);
       } else {
         await _soundRecorder!.startRecorder(
+//StartRecorder needs a path beacuse we convert String to File          
           toFile: path,
         );
       }
 
       setState(() {
+//converts intial value of isRecording        
         isRecording = !isRecording;
       });
     }
@@ -110,6 +121,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   void selectGIF() async {
     final gif = await pickGIF(context);
     if (gif != null) {
+//Since we have the url, no need to save to firestore first        
       ref.read(chatControllerProvider).sendGIFMessage(
             context,
             gif.url,

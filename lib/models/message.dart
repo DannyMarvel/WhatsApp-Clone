@@ -45,7 +45,7 @@ class Message {
       senderId: map['senderId'] ?? '',
       recieverid: map['recieverid'] ?? '',
       text: map['text'] ?? '',
-//Whenever we get data from firebase type will be called      
+//Whenever we get data from firebase type will be called       
       type: (map['type'] as String).toEnum(),
       timeSent: DateTime.fromMillisecondsSinceEpoch(map['timeSent']),
       messageId: map['messageId'] ?? '',
