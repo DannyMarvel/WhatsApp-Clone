@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../common/widgets2/loader.dart';
+import '../../../../../models/group.dart';
 import '../controller/chat_controller.dart';
 import '../screens/mobile_chat_screen.dart';
 import '../../../../../models/chat_contact.dart';
@@ -22,7 +23,7 @@ class ContactsList extends ConsumerWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            StreamBuilder<List<Group>>(
+            StreamBuilder<List<Groupp>>(
                 stream: ref.watch(chatControllerProvider).chatGroups(),
                 builder: (context, snapshot) {
 //Method to correct that Instagram error of Null = null                 

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:danny_chats/models/group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/properties/group.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,8 +31,8 @@ class ChatController {
   Stream<List<ChatContact>> chatContacts() {
     return chatRepository.getChatContacts();
   }
-
-  Stream<List<Group>> chatGroups() {
+//This is for the Groups
+  Stream<List<Groupp>> chatGroups() {
     return chatRepository.getChatGroups();
   }
 
@@ -110,7 +111,7 @@ class ChatController {
         );
     ref.read(messageReplyProvider.state).update((state) => null);
   }
-
+//isGroupChat is not required here
   void setChatMessageSeen(
     BuildContext context,
     String recieverUserId,

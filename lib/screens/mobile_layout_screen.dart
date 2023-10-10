@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../common/widgets2/utils/utils.dart';
+import '../features/group/screens/create_group_screen.dart';
 import '../features/landing/auth/chats/widgets/contacts_list.dart';
 import '../features/landing/auth/controller/auth_controller.dart';
 import '../features/landing/select_contacts/screens/select_contacts_screen.dart';
+import '../features/status/screens/confirm_status_screen.dart';
+import '../features/status/screens/status_contacts_screen.dart';
 import '../widgets/colors.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
@@ -75,6 +78,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
             ),
             PopupMenuButton(
               icon: const Icon(
+//We added Icons. so that the color function can work               
                 Icons.more_vert,
                 color: Colors.grey,
               ),
@@ -84,6 +88,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                     'Create Group',
                   ),
                   onTap: () => Future(
+//We wrap with a future so, the navigation will work                    
                     () => Navigator.pushNamed(
                         context, CreateGroupScreen.routeName),
                   ),
@@ -101,6 +106,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
               fontWeight: FontWeight.bold,
             ),
             tabs: const [
+//tab shows the required screen under the TabBarView              
               Tab(
                 text: 'CHATS',
               ),

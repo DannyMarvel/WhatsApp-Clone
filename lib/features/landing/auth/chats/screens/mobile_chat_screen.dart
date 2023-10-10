@@ -43,6 +43,7 @@ class MobileChatScreen extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: appBarColor,
           title: isGroupChat
+//Because there will not be online and offline capability          
               ? Text(name)
               : StreamBuilder<UserModel>(
                   stream: ref.read(authControllerProvider).userDataById(uid),

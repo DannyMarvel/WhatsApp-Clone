@@ -14,7 +14,7 @@ import 'my_message_card.dart';
 import 'sender_message_card.dart';
 
 
-//The MainChat Page
+//The MainChat Page function
 class ChatList extends ConsumerStatefulWidget {
   final String recieverUserId;
   final bool isGroupChat;
@@ -56,6 +56,7 @@ class _ChatListState extends ConsumerState<ChatList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Message>>(
+//Becuase it is StateFul we use Widget First      
         stream: widget.isGroupChat
             ? ref
                 .read(chatControllerProvider)

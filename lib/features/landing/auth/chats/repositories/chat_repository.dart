@@ -14,6 +14,7 @@ import '../../../../../common/widgets2/utils/utils.dart';
 import '../../../../../models/chat_contact.dart';
 import '../../../../../models/message.dart';
 import '../../../../../models/user_model.dart';
+import '../../../../../models/group.dart' ;
 
 final chatRepositoryProvider = Provider(
   (ref) => ChatRepository(
@@ -60,11 +61,12 @@ class ChatRepository {
     });
   }
 
-  Stream<List<Group>> getChatGroups() {
+  Stream<List<Groupp>> getChatGroups() {
+//We are basically mapping through all the groups we have on FireStore    
     return firestore.collection('groups').snapshots().map((event) {
-      List<Group> groups = [];
+      List<Groupp> groups = [];
       for (var document in event.docs) {
-        var group = Group.fromMap(document.data());
+        var group = Groupp.fromMap(document.data());
         if (group.membersUid.contains(auth.currentUser!.uid)) {
           groups.add(group);
         }
@@ -90,7 +92,7 @@ class ChatRepository {
       return messages;
     });
   }
-
+//This is Important to show the Group messages
   Stream<List<Message>> getGroupChatStream(String groudId) {
     return firestore
         .collection('groups')
@@ -115,6 +117,7 @@ class ChatRepository {
     String recieverUserId,
     bool isGroupChat,
   ) async {
+//If it is Group chat we save to groups subCollection    
     if (isGroupChat) {
       await firestore.collection('groups').doc(recieverUserId).update({
         'lastMessage': text,
