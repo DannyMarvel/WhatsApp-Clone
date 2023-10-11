@@ -47,11 +47,11 @@ dependencies:
   emoji_picker_flutter: ^1.3.1
   intl: ^0.18.1
   uuid: ^3.0.7
-  cache_video_player: ^0.0.4
+  cached_video_player: ^2.0.3
   cached_network_image: ^3.2.2
   enough_giphy_flutter: ^0.3.0
   flutter_sound: ^9.2.13
-  permission_handler: ^9.2.0
+  permission_handler: ^10.2.0
   path_provider: ^2.0.11
   audioplayers: ^3.0.0
   swipe_to: ^1.0.2

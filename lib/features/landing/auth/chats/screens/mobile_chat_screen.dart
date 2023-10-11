@@ -3,13 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../common/widgets2/loader.dart';
 import '../../../../../models/user_model.dart';
+import '../../../../call/controller/call_controller.dart';
+import '../../../../call/screens/call_pickup_screen.dart';
 import '../../controller/auth_controller.dart';
 import '../../../../../widgets/colors.dart';
 import '../widgets/bottom_chat_field.dart';
 import '../widgets/chat_list.dart';
-
-
-
 
 class MobileChatScreen extends ConsumerWidget {
   static const String routeName = '/mobile-chat-screen';
@@ -34,6 +33,7 @@ class MobileChatScreen extends ConsumerWidget {
           isGroupChat,
         );
   }
+
 //We cannot use future Data to determine a user still Online/Offline
 //But we can use StreamBuilder, becuase it continuosly gives us the data
   @override
@@ -43,7 +43,7 @@ class MobileChatScreen extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: appBarColor,
           title: isGroupChat
-//Because there will not be online and offline capability          
+//Because there will not be online and offline capability
               ? Text(name)
               : StreamBuilder<UserModel>(
                   stream: ref.read(authControllerProvider).userDataById(uid),
