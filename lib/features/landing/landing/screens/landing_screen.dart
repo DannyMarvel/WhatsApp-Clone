@@ -21,6 +21,15 @@ class LandingScreen extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
             Text(
               'Welcome to Danny WhatsApp',
               style: TextStyle(
