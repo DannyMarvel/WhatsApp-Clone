@@ -1,7 +1,8 @@
-import 'package:agora_uikit/agora_uikit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../../common/widgets2/loader.dart';
 import '../../../config/agora_config.dart';
@@ -12,11 +13,15 @@ class CallScreen extends ConsumerStatefulWidget {
   final String channelId;
   final Call call;
   final bool isGroupChat;
-  const CallScreen({
+  final String userID ='';
+  final String name = '';
+ // final String appSign;
+  const CallScreen({  
     Key? key,
     required this.channelId,
     required this.call,
     required this.isGroupChat,
+    //required this.appSign,
   }) : super(key: key);
 
   @override
@@ -24,53 +29,40 @@ class CallScreen extends ConsumerStatefulWidget {
 }
 
 class _CallScreenState extends ConsumerState<CallScreen> {
-  AgoraClient? client;
+  var client = ZegoUIKitPrebuiltCall;
   //String baseUrl = 'https://whatsapp-clone-rrr.herokuapp.com';
 
-  @override
-  void initState() {
-    super.initState();
-    client = AgoraClient(
-      agoraConnectionData: AgoraConnectionData(
-        appId: AgoraConfig.appId,
-        channelName: widget.channelId,
-       // tokenUrl: baseUrl,
-      ),
-    );
-    initAgora();
-  } 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   client = ZegoClient(
+  //       appId: AgoraConfig.appId,
+  //       channelName: widget.channelId,
+  //      // tokenUrl: baseUrl,
+      
+  //   );
+  //   initAgora();
+  // } 
 
-  void initAgora() async {
-    await client!.initialize();
-  }
+  // void initZego() async {
+  //   await client!.initialize();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: client == null
           ? const Loader()
-          : SafeArea(
-              child: Stack(
-                children: [
-                  AgoraVideoViewer(client: client!),
-                  AgoraVideoButtons(
-                    client: client!,
-                    disconnectButtonChild: IconButton(
-                      onPressed: () async {
-                        await client!.engine.leaveChannel();
-                        ref.read(callControllerProvider).endCall(
-                              widget.call.callerId,
-                              widget.call.receiverId,
-                              context,
-                            );
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.call_end),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          :ZegoUIKitPrebuiltCall(
+      appID: 671455410, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+      appSign: "1fad8a99f6877bc7255fe9c09f0404e387ef9923084abfe9ab068f288af1884c", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+      userID: widget.userID,
+     userName: widget.name,
+      callID: widget.channelId,
+      // You can also use groupVideo/groupVoice/oneOnOneVoice to make more types of calls.
+      config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall() 
+        ..onOnlySelfInRoom = (context) => Navigator.of(context).pop(),
+    ),
     );
   }
 }

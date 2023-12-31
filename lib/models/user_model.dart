@@ -1,5 +1,5 @@
 //Do not use User as a class cause it exists in firebase
-import 'package:flutter/foundation.dart';
+//import 'package:flutter/foundation.dart';
 
 class UserModel {
   final String name;

@@ -1,6 +1,5 @@
 import 'package:danny_chats/widgets/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/properties/group.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -19,7 +18,7 @@ class ContactsList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
+      padding: const EdgeInsets.only(top: 10.0), 
       child: SingleChildScrollView(
         child: Column(
           children: [

@@ -54,3 +54,4 @@ class MyApp extends ConsumerWidget {
             ));
   }
 }
+//flutter build apk --split-per-abi

@@ -72,6 +72,9 @@ class CallPickupScreen extends ConsumerWidget {
                                   channelId: call.callId,
                                   call: call,
                                   isGroupChat: false,
+                                  
+                                  
+                                
                                 ),
                               ),
                             );
